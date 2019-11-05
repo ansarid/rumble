@@ -63,6 +63,9 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <linux/input.h>
+#include <zconf.h>
+#include <stdio.h>
+
 
 /* test_bit  : Courtesy of Johan Deneux */
 #define BITS_PER_LONG (sizeof(long) * 8)
@@ -129,15 +132,15 @@ int joy_reopen(int joy)
 	#ifdef DEBUG
 		//printf("Trying to recover from error: closing event file\n");
 	#endif
-	
+
 	close(event_fd[joy]);
-	
+
 	#ifdef DEBUG
 		//printf("Trying to recover from error: re-opening event file\n");
 	#endif
-	
+
 	event_fd[joy] = open(eventfile[joy], O_RDWR);
-	
+
 }
 
 
@@ -240,9 +243,12 @@ void __attribute__ ((constructor)) joyrumble_init(void)
 
 		if (hasrumble[count]){
 			//printf(" can rumble.\n");
+			// printf("0\n");
 		}
 		else{
 			//printf(" can't rumble.\n");
+			// printf("1\n");
+			exit(1);
 		}
 	#endif
 
@@ -285,7 +291,9 @@ extern int joyrumble(int joynumber, int strong, int weak, int duration)
 	/* If this device doesn't support rumble, just quit */
 	if (hasrumble[joy]==0){
 		#ifdef DEBUG
-			//printf("NO RUMBLE");
+		//printf("NO RUMBLE");
+		// printf("2");
+		exit(2);
 		#endif
 		return -1;
 	}
@@ -350,7 +358,9 @@ extern int joyrumble(int joynumber, int strong, int weak, int duration)
 
 	if (write(event_fd[joy], (const void*) &play[joy], sizeof(play[joy])) == -1){
 		#ifdef DEBUG
-			//printf("error playing effect\n");
+		//printf("error playing effect\n");
+		// printf("3\n");
+		exit(3);
 		#endif
 		joy_reopen(joy);
 	}
@@ -360,13 +370,25 @@ extern int joyrumble(int joynumber, int strong, int weak, int duration)
 		//printf("Done.\n");
 	#endif
 
-
-
 }
-
 
 /* The "joyrumble" command-line tool */
 int main(int argc, char *argv[]){
+
+	int a;
+	a=getuid();
+	//or you can use  a=geteuid();
+	//euid is effective user id and uid is user id
+	// both euid and uid are zero when you are root user
+	if (a==0){
+	// printf("you are root user\n");
+	//so you can do what`enter code here`ever `enter code here` you want as root user
+	}
+	else{
+	// printf("please run the script as root user !\n");
+	// printf("4");
+	exit(4);
+	}
 
   if (argc < 5)
     {
