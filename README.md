@@ -6,6 +6,7 @@ Rumble a GamePad with C and Python.
 ```
 sudo apt install libc6-dev-i386
 ```
+*Not needed on BeagleBone.
 
 ##### GCC:
 ```
