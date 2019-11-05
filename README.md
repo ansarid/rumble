@@ -20,5 +20,5 @@ rumble [ joystick (1-8) ]  [strong motor magnitude (%) ]  [weak motor magnitude 
 ```
 ##### Python
 ```
-python3 rumble.py
+python3 joystick_rumble.py
 ```
