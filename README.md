@@ -2,24 +2,24 @@
 Rumble a GamePad with C and Python.
 
 ## Compile
-##### Requirements:
+#### Requirements:
 ```
 sudo apt install libc6-dev-i386
 ```
 *Not needed on BeagleBone.
 
-##### GCC:
+#### GCC:
 ```
 gcc rumble.c -o rumble
 ```
 
 ### Usage
 
-##### C
+#### C:
 ```
 rumble [ joystick (1-8) ]  [strong motor magnitude (%) ]  [weak motor magnitude (%) ]  [duration (miliseconds) ]
 ```
-##### Python
+#### Python:
 ```
 python3 joystick_rumble.py
 ```
